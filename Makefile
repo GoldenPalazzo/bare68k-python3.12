@@ -1,7 +1,7 @@
 # Makefile helps calling typical python commands
 
-PYTHON = python2.7
-PIP = pip2.7
+PYTHON = python
+PIP = pip
 OPEN = open
 
 .PHONY: help init build test
@@ -39,11 +39,8 @@ init:
 	$(PIP) install -U -r requirements-dev.txt
 
 init_py:
-	pyenv install -s 2.7.13
-	pyenv install -s 3.4.6
-	pyenv install -s 3.5.3
-	pyenv install -s 3.6.2
-	pyenv local 2.7.13 3.4.6 3.5.3 3.6.2
+	pyenv install -s 3.12
+	pyenv local 3.12
 
 build:
 	$(PYTHON) setup.py build_ext -i
