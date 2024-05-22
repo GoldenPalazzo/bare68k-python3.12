@@ -36,7 +36,7 @@ cdef class Label:
 
 # helper funcs
 
-cdef void cleanup_label(label.label_entry_t *entry):
+cdef void cleanup_label(label.label_entry_t *entry) noexcept:
   if entry.data != NULL:
     pydata = <object>entry.data
     Py_DECREF(pydata)

@@ -9,7 +9,7 @@ def add_memory(uint16_t start_page, uint16_t num_pages, int flags):
 
 # configure special range
 
-cdef void mem_special_cleanup(mem.special_entry_t *e):
+cdef void mem_special_cleanup(mem.special_entry_t *e) noexcept:
   if e.r_data != NULL:
     rfunc = <object>e.r_data
     Py_DECREF(rfunc)
@@ -17,7 +17,7 @@ cdef void mem_special_cleanup(mem.special_entry_t *e):
     wfunc = <object>e.w_data
     Py_DECREF(wfunc)
 
-cdef int mem_special_adapter_w(int access, uint32_t addr, uint32_t val, void *pfunc, void **out_data):
+cdef int mem_special_adapter_w(int access, uint32_t addr, uint32_t val, void *pfunc, void **out_data) noexcept:
   try:
     if pfunc != NULL:
       f = <object>pfunc
@@ -36,7 +36,7 @@ cdef int mem_special_adapter_w(int access, uint32_t addr, uint32_t val, void *pf
     out_data[0] = <void *>exc_info
     return cpu.CPU_CB_ERROR
 
-cdef int mem_special_adapter_r(int access, uint32_t addr, uint32_t *val, void *pfunc, void **out_data):
+cdef int mem_special_adapter_r(int access, uint32_t addr, uint32_t *val, void *pfunc, void **out_data) noexcept:
   try:
     if pfunc != NULL:
       f = <object>pfunc
@@ -100,7 +100,7 @@ def add_mirror(uint16_t start_page, uint16_t num_pages, int flags, uint16_t base
 
 cdef object mem_cpu_trace_func = None
 
-cdef int mem_cpu_trace_adapter(int flag, uint32_t addr, uint32_t val, void **data):
+cdef int mem_cpu_trace_adapter(int flag, uint32_t addr, uint32_t val, void **data) noexcept:
   global mem_cpu_trace_func
   try:
     result = mem_cpu_trace_func(flag, addr, val)
@@ -116,7 +116,7 @@ cdef int mem_cpu_trace_adapter(int flag, uint32_t addr, uint32_t val, void **dat
     data[0] = <void *>exc_info
     return cpu.CPU_CB_ERROR
 
-cdef int mem_cpu_trace_adapter_str(int flag, uint32_t addr, uint32_t val, void **data):
+cdef int mem_cpu_trace_adapter_str(int flag, uint32_t addr, uint32_t val, void **data) noexcept:
   cdef str s
   global mem_cpu_trace_func
   try:
@@ -152,7 +152,7 @@ def set_mem_cpu_trace_func(object cb=None, bool default=False, bool as_str=False
 cdef object mem_api_trace_func = None
 cdef object mem_api_exc_info = None
 
-cdef void mem_api_trace_adapter(int flag, uint32_t addr, uint32_t val, uint32_t extra):
+cdef void mem_api_trace_adapter(int flag, uint32_t addr, uint32_t val, uint32_t extra) noexcept:
   global mem_api_trace_func
   global mem_api_exc_info
   try:
@@ -160,7 +160,7 @@ cdef void mem_api_trace_adapter(int flag, uint32_t addr, uint32_t val, uint32_t 
   except:
     mem_api_exc_info = sys.exc_info()
 
-cdef void mem_api_trace_adapter_str(int flag, uint32_t addr, uint32_t val, uint32_t extra):
+cdef void mem_api_trace_adapter_str(int flag, uint32_t addr, uint32_t val, uint32_t extra)noexcept:
   cdef str s
   global mem_api_trace_func
   global mem_api_exc_info

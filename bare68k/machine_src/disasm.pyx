@@ -5,7 +5,7 @@ def disassemble(uint32_t pc):
   cdef unsigned int i
   num_bytes = musashi.m68k_disassemble(line, pc, cpu.cpu_get_type())
   words = []
-  for i in range(num_bytes/2):
+  for i in range(num_bytes//2):
     words.append(mem.m68k_read_disassembler_16(pc+i*2))
   return (pc, words, <str>line)
 

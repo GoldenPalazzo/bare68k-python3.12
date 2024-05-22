@@ -39,7 +39,7 @@ cdef Event create_event(cpu.event_t *event):
                event.addr, event.value, event.flags,
                data, handler)
 
-cdef void cleanup_event(cpu.event_t *event):
+cdef void cleanup_event(cpu.event_t *event) noexcept:
   cdef int ev_type = event.type
   cdef object data = None
   cdef int decref = 1
@@ -211,7 +211,7 @@ def get_type():
 # irq
 
 cdef object int_ack_func = None
-cdef int int_ack_adapter(int level, uint32_t pc, uint32_t *ack_ret, void **data):
+cdef int int_ack_adapter(int level, uint32_t pc, uint32_t *ack_ret, void **data) noexcept:
   global int_ack_func
   try:
     # cb returns tuple (int_num, data) or int_num
@@ -249,7 +249,7 @@ def set_irq(unsigned int level):
 
 cdef object instr_hook_func
 
-cdef int instr_hook_func_wrapper(uint32_t pc, void **data):
+cdef int instr_hook_func_wrapper(uint32_t pc, void **data) noexcept:
   global instr_hook_func
   try:
     result = instr_hook_func(pc)
@@ -265,7 +265,7 @@ cdef int instr_hook_func_wrapper(uint32_t pc, void **data):
     data[0] = <void *>exc_info
     return cpu.CPU_CB_ERROR
 
-cdef int instr_hook_func_str_wrapper(uint32_t pc, void **data):
+cdef int instr_hook_func_str_wrapper(uint32_t pc, void **data) noexcept:
   cdef str s
   global instr_hook_func
   try:

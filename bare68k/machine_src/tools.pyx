@@ -34,7 +34,7 @@ def get_num_breakpoints():
 def get_next_free_breakpoint():
   return tools.tools_get_next_free_breakpoint()
 
-cdef void free_breakpoint_cb(void *data):
+cdef void free_breakpoint_cb(void *data) noexcept:
   if data != NULL:
     Py_DECREF(<object>data)
 
@@ -104,7 +104,7 @@ def get_num_watchpoints():
 def get_next_free_watchpoint():
   return tools.tools_get_next_free_watchpoint()
 
-cdef void free_watchpoint_cb(void *data):
+cdef void free_watchpoint_cb(void *data) noexcept:
   if data != NULL:
     Py_DECREF(<object>data)
 
@@ -174,7 +174,7 @@ def get_num_timers():
 def get_next_free_timer():
   return tools.tools_get_next_free_timer()
 
-cdef void free_timer_cb(void *data):
+cdef void free_timer_cb(void *data) noexcept:
   if data != NULL:
     Py_DECREF(<object>data)
 
