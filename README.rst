@@ -71,7 +71,7 @@ Installation
 
   $ pip install bare68k
 
-  * or build it yourself
+  * or build it yourself::
 
     $ make release
 
