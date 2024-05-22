@@ -13,6 +13,7 @@ You can intercept the running code with a trap mechanism and use powerful
 diagnose functions,
 
 written by Christian Vogelgsang <chris@vogelgsang.org>
+forked and updated by Francesco Palazzo @GoldenPalazzo
 
 under the GNU Public License V2
 
@@ -28,14 +29,14 @@ under the GNU Public License V2
 .. |pypi-v| image:: https://img.shields.io/pypi/v/bare68k.svg
    :target: https://pypi.python.org/pypi/bare68k
 .. |wheel| image:: https://img.shields.io/pypi/wheel/bare68k.svg
-.. |pyver| image:: https://img.shields.io/pypi/pyversions/bare68k.svg
+.. |pyver| image:: https://img.shields.io/badge/python-2.7_%7C_3.4_%7C_3.5_%7C_3.6_%7C_3.12-blue
 .. |status| image:: https://img.shields.io/pypi/status/bare68k.svg
 
 Features
 --------
 
 * all emulation code written in C for fast speed
-* runs on Python 2.7 and Python 3.5
+* runs on Python 2.7 and Python 3.5 (and now also 3.12)
 * emulates CPU 68000, 68020, and 68EC020
 * use a 24 or 32 bit memory map
 * define memory regions for RAM and ROM with page granularity (64k)
@@ -66,9 +67,13 @@ Features
 Installation
 ------------
 
-* use pip::
+* download latest wheel from releases and use pip::
 
   $ pip install bare68k
+
+  * or build it yourself
+
+    $ make release
 
 * or checkout github repository and install::
 
@@ -84,3 +89,7 @@ Documentation
 * the full documentation is hosted at `ReadTheDocs`_
 
 .. _ReadTheDocs: https://bare68k.readthedocs.io/en/latest/
+
+note of the forker: it seems that the original documentation is documented poorly,
+and had to check older versions of the documentation to understand how to use the library
+(there is literally one single example in version 0.1.0)
